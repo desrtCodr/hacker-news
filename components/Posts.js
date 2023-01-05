@@ -4,55 +4,64 @@ import { fetchMainPosts } from '../pages/api/api';
 import Loading from './Loading';
 import PostsList from './PostsList';
 
-export default class Posts extends React.Component {
-  state = {
-    posts: null,
-    error: null,
-    loading: true,
-  };
-  componentDidMount() {
-    this.handleFetch();
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.type !== this.props.type) {
-      this.handleFetch();
-    }
-  }
-  handleFetch() {
-    this.setState({
+function postsReducer(state, action) {
+  if (action.type === 'reset') {
+    return {
       posts: null,
       error: null,
       loading: true,
-    });
+    };
+  } else if (action.type === 'success') {
+    return {
+      posts: action.posts,
+      error: null,
+      loading: false,
+    };
+  } else if (action.type === 'error') {
+    return {
+      error: action.message,
+      loading: false,
+    };
+  } else {
+    throw new Error('This action type is not supported.');
+  }
+}
 
-    fetchMainPosts(this.props.type)
-      .then((posts) =>
-        this.setState({
+export default function Posts({ type }) {
+  const [state, dispatch] = React.useReducer(postsReducer, {
+    posts: null,
+    error: null,
+    loading: true,
+  });
+  const handleFetch = () => dispatch({ type: 'reset' });
+
+  React.useEffect(() => {
+    handleFetch();
+
+    fetchMainPosts(type)
+      .then((posts) => {
+        dispatch({
+          type: 'success',
           posts,
-          loading: false,
-          error: null,
-        })
-      )
-      .catch(({ message }) =>
-        this.setState({
-          error: message,
-          loading: false,
-        })
-      );
+        });
+      })
+      .catch(({ message }) => {
+        dispatch({
+          type: 'error',
+          message,
+        });
+      });
+  }, [type]);
+
+  const { posts, error, loading } = state;
+
+  if (loading === true) {
+    return <Loading />;
   }
-  render() {
-    const { posts, error, loading } = this.state;
-
-    if (loading === true) {
-      return <Loading />;
-    }
-
-    if (error) {
-      return <p className='center-text error'>{error}</p>;
-    }
-
-    return <PostsList posts={posts} />;
+  if (error) {
+    return <p className='center-text error'>{error.message}</p>;
   }
+  return <PostsList posts={posts} />;
 }
 
 Posts.propTypes = {
