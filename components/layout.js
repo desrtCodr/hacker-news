@@ -2,8 +2,8 @@ import React from 'react';
 import Head from 'next/head';
 import Navbar from './navbar';
 import ThemeContext from '../contexts/ThemeContext';
-import styles from '../styles/Layout.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Layout({ children }) {
   const { theme } = React.useContext(ThemeContext);
@@ -18,18 +18,19 @@ export default function Layout({ children }) {
           />
           <link rel='icon' href='/favicon.ico' />
         </Head>
-        <div className={styles.container}>
+        <div className='container'>
           <Navbar />
           <main>{children}</main>
         </div>
-        <footer className={styles.footer}>
-          <a
+        <footer className='center-text post'>
+          <Link
+            className='link'
             href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
             target='_blank'
             rel='noopener noreferrer'
           >
             Powered by{' '}
-            <span className={styles.logo}>
+            <span className='logo'>
               <Image
                 src='/vercel.svg'
                 alt='Vercel Logo'
@@ -37,7 +38,7 @@ export default function Layout({ children }) {
                 height={16}
               />
             </span>
-          </a>
+          </Link>
         </footer>
       </div>
     </div>
