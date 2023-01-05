@@ -14,7 +14,7 @@ export default function Nav() {
         <li>
           <Link
             href='/'
-            activeStyle={activeStyle}
+            // activeStyle={activeStyle}
             className='nav-link'
           >
             Top
@@ -23,7 +23,7 @@ export default function Nav() {
         <li>
           <Link
             href='/new'
-            activeStyle={activeStyle}
+            // activeStyle={activeStyle}
             className='nav-link'
           >
             New

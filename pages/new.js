@@ -1,5 +1,5 @@
 import Posts from '../components/Posts';
 
-export default function Home() {
+export default function New() {
   return <Posts type='top' />;
 }
