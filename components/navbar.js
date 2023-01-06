@@ -1,12 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import ThemeContext from '../contexts/ThemeContext';
-
-const activeStyle = {
-  color: 'rgb(187, 46, 31)',
-};
+import { useRouter } from 'next/router';
 
 export default function Nav() {
+  const router = useRouter();
   const { theme, toggleTheme } = React.useContext(ThemeContext);
   return (
     <nav className='row space-between'>
@@ -14,8 +12,9 @@ export default function Nav() {
         <li>
           <Link
             href='/'
-            // activeStyle={activeStyle}
-            className='nav-link'
+            className={
+              router.pathname === '/' ? 'nav-link active' : 'nav-link'
+            }
           >
             Top
           </Link>
@@ -23,8 +22,11 @@ export default function Nav() {
         <li>
           <Link
             href='/new'
-            // activeStyle={activeStyle}
-            className='nav-link'
+            className={
+              router.pathname === '/new'
+                ? 'nav-link active'
+                : 'nav-link'
+            }
           >
             New
           </Link>

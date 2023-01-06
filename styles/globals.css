@@ -36,7 +36,7 @@ li {
 }
 
 .dark a {
-  color: rgb(203, 203, 203);
+  color: rgb(72, 112, 254);
 }
 
 .link {
@@ -60,7 +60,12 @@ li {
   text-decoration: none;
   color: inherit;
 }
-
+.active {
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: rgb(187, 46, 31);
+}
 .nav li {
   margin-right: 10px;
 }
