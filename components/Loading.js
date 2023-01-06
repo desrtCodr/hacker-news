@@ -26,7 +26,7 @@ export default function Loading({ text = 'Loading', speed = 300 }) {
 
   return (
     <div className='container'>
-      <p style={styles.content}>{content}</p>;
+      <p style={styles.content}>{content}</p>
     </div>
   );
 }
